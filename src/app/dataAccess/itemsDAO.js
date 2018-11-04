@@ -5,7 +5,7 @@ function ItemsDAO(connection) {
 }
 
 ItemsDAO.prototype.search = function (params, callback) {
-    let query = 'SELECT id, event, timestamp FROM ITEM ';
+    let query = 'SELECT ID, EVENT, TIMESTAMP FROM ITEM ';
     if (params.id) {
         query += 'WHERE ID = ?';
         query = mysql.format(query, params.id)
@@ -19,9 +19,9 @@ ItemsDAO.prototype.search = function (params, callback) {
 ItemsDAO.prototype.save = function (item, callback) {
     var query = {};
     if (item.timestamp) {
-        query = mysql.format('insert into ITEM (event, timestamp) VALUES (?, ?)', item.event, item.timestamp);
+        query = mysql.format('INSERT INTO ITEM (EVENT, TIMESTAMP) VALUES (?, ?)', item.event, item.timestamp);
     } else {
-        query = mysql.format('insert into ITEM (event, timestamp) VALUES (?, NOW())', item.event);
+        query = mysql.format('INSERT INTO ITEM (EVENT, TIMESTAMP) VALUES (?, NOW())', item.event);
     }
     this._connection.query(query, callback);
 }

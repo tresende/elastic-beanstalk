@@ -12,6 +12,7 @@ services:
       MYSQL_USER: web
       MYSQL_PASSWORD: web
     volumes:
+      - ./src/db.sql:/docker-entrypoint-initdb.d/init.sql      
       - ./volume:/var/lib/mysql      
   container-casadocodigo:
     image: casadocodigo:v1-dev
