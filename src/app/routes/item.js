@@ -1,7 +1,15 @@
-module.exports = function (app) {
+module.exports = (app) => {
 
-    this.connection = {};
-    this.itemsDAO = {};
+    let connection = {};
+    let itemsDAO = {};
+
+    const search = (params, res) => {
+        setConnection();
+        itemsDAO.search(params, (err, results) => {
+            connection.end();
+            res.json(results);
+        });
+    }
 
     app.get('/api/item/:id', (req, res) => {
         search(req.query, res);
@@ -11,25 +19,16 @@ module.exports = function (app) {
         search(req.query, res);
     });
 
-    app.post('/api/item', function (req, res) {
-        var item = req.body;
+    app.post('/api/item', (req, res) => {
         setConnection();
-        itemsDAO.save(item, function (err, results) {
+        itemsDAO.save(req.body, (err, results) => {
             connection.end();
             res.json(results);
         });
     });
 
-    search = function (params, res) {
-        setConnection();
-        itemsDAO.search(params, function (err, results) {
-            connection.end();
-            res.json(results);
-        });
-    }
-
-    setConnection = function (){
-        this.connection = app.dataAccess.connectionFactory();
-        this.itemsDAO = new app.dataAccess.itemsDAO(connection);
+    const setConnection = () => {
+        connection = app.dataAccess.connectionFactory();
+        itemsDAO = new app.dataAccess.itemsDAO(connection);
     }
 };
