@@ -45,9 +45,9 @@ public class JPAConfiguration {
 	@Profile("prod")
 	public DataSource dataSourceProd() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUsername(System.getProperty("USUARIO"));
-		dataSource.setPassword(System.getProperty("SENHA"));
-		dataSource.setUrl(System.getProperty("JDBC_CONNECTION_STRING"));
+		dataSource.setUsername(System.getenv("USUARIO"));
+		dataSource.setPassword(System.getenv("SENHA"));
+		dataSource.setUrl(System.getenv("JDBC_CONNECTION_STRING"));
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		return dataSource;
 	}
@@ -58,7 +58,7 @@ public class JPAConfiguration {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername(System.getenv("USUARIO"));
 		dataSource.setPassword(System.getenv("SENHA	"));
-		dataSource.setUrl(System.getProperty("JDBC_CONNECTION_STRING"));
+		dataSource.setUrl(System.getenv("JDBC_CONNECTION_STRING"));
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		return dataSource;
 	}
