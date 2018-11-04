@@ -1,0 +1,21 @@
+version: "3.0"
+services:
+  container_mysql:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: "casadocodigo"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: web
+      MYSQL_PASSWORD: web
+
+  container-casadocodigo:
+    image: casadocodigo:v1-dev
+    ports:
+      - 80:8080
+    environment:
+        USUARIO: "root"
+        SENHA: ""
+        JDBC_CONNECTION_STRING: "jdbc:mysql://container_mysql:3306/casadocodigo"
+    depends_on:
+      - container_mysql
