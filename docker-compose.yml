@@ -1,0 +1,27 @@
+version: "3.0"
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: "casadocodigo"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: web
+      MYSQL_PASSWORD: web
+    volumes:
+      - ./volume:/var/lib/mysql      
+  container-casadocodigo:
+    image: casadocodigo:v1-dev
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      USER: "root"
+      PASSWORD: "root"
+      DATABASE: "casadocodigo"
+      HOST: db
+
