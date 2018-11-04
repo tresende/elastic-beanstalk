@@ -1,4 +1,4 @@
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
-docker build -t casadocodigo:v1-dev .
+docker build -t tresende/nodemysql:v1 .
 docker-compose up
